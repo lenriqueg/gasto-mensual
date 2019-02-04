@@ -2,7 +2,9 @@ import React, { Component } from 'react';
 import Header from './Header';
 import Formulario from './Formulario';
 import Listado from './Listado';
+import ControlPresupuesto from './ControlPresupuesto';
 import '../css/App.css';
+import {validarPresupuesto} from '../helper';
 
 class App extends Component {
 
@@ -14,6 +16,28 @@ class App extends Component {
 			restante: null,
 			gastos: []
 		}
+	}
+
+	componentDidMount() {
+
+		this.obtenerPresupuesto();
+	}
+
+	obtenerPresupuesto() {
+
+		let presupuesto = prompt('¿Cual es el presupuesto?');
+
+		let resultado = validarPresupuesto(presupuesto);
+
+		if (!resultado) {
+
+			this.obtenerPresupuesto();
+		}
+
+		this.setState({ 
+			presupuesto: presupuesto,
+			restante: presupuesto
+		});
 	}
 
 	agregarGasto = (gasto) => {
@@ -48,6 +72,9 @@ class App extends Component {
 							<Listado
 								gastos={this.state.gastos}
 							/>
+							<ControlPresupuesto
+								restante={this.state.restante}
+								presupuesto={this.state.presupuesto} />
 						</div>
 					</div>
 				</div>
