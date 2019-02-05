@@ -51,6 +51,21 @@ class App extends Component {
 			this.setState({
 				gastos
 			});
+
+			this.restarPresupuesto(gasto.cantidadGasto);
+	}
+
+	restarPresupuesto = cantidad => {
+
+		let restar = Number(cantidad);
+
+		let restante = this.state.restante;
+
+		restante -= restar;
+
+		this.setState({
+			restante
+		})		
 	}
 
 	render() {
